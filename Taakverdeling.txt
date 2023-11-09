@@ -1,0 +1,18 @@
+Taken
+
+- Functie toevegen zodat we random nummers gebruiken i.p.v. pixelwaardes
+- Functie toevoegen die de oppervlakte berekent
+- We doen een grote simulatie met een i en s waarbij s > i en we nemen aan dat de gevonden oppervalkte de echte waarde van de oppervlakte is
+- Functie creeeren die meerdere simulaties doet voor verschillende waarden van j waarbij s vast blijft
+- Functie creeeren die de oppervlakte A_js vergelijkt met A_is
+- Bekijk de convergentie van A_js-A_is met verschillende waardes van j
+- Voor de 3e opdracht bekijken we voor welke waarde van i het verschil in resultaat te klein wordt. Deze i houden we aan voor de verschillende sampling methods.
+
+
+verslag: 
+- Theorie van de Mandelbort set introduceren en uitleggen
+- Toelichten waarom we een specifieke i hebben gekozen
+- Methode van vraag 2 uitleggen
+- Resultaten van vraag 2 tonen en discusiëren 
+- Verschillende sampling methodes toelichten
+- 
