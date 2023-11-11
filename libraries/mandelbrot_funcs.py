@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from numba import jit
+from numba import jit, vectorize
+
 @jit(nopython=True)
 def mandelbrot(z_n, c):
     """
@@ -13,7 +14,7 @@ def mandelbrot(z_n, c):
     Returns:
         _type_: next iteration of the mandelbrot number
     """
-    return z_n**2 + c
+    return np.square(z_n)+ c
 
 @jit(nopython=True)
 def mandelbrot_set(c, i_iterations:int=100):
@@ -28,12 +29,33 @@ def mandelbrot_set(c, i_iterations:int=100):
         bool: whether the number belongs to the mandelbrotset
     """
     z_n = 0
-    for _ in range(100):
+    for _ in range(i_iterations):
         z_n = mandelbrot(z_n, c)
         # check if the number is diverging
         if abs(z_n) > 2:
             return False
     return True
+
+
+def mandelbrot_set_array(c, i_iterations:int=100):
+    """
+    Assess whether a number is part of the mandelbrot set or not. Computes the mandelbrot set for an array of numbers all at once. When not using jit, this is faster than using mandelbrot_set for each number individually.
+
+    Note: If using simply complex numbers as input, please use mandelbrot_set instead.
+
+    Args:
+        c: number to test, complex number, preferably an array.
+        i_iterations (int): number of iterations, i, to check the number for
+    Returns:
+        bool: whether the number belongs to the mandelbrotset
+    """
+    
+    z_n = np.zeros(c.shape, dtype=np.complex128)
+    for _ in np.arange(i_iterations):
+        z_n = mandelbrot(z_n, c)
+    results = np.abs(z_n) < 2
+    return results
+
 
 @jit(nopython=True)
 def mandelbrot_set_image(xmin, xmax, ymin, ymax, width, height, i_iterations:int=100):
@@ -41,12 +63,12 @@ def mandelbrot_set_image(xmin, xmax, ymin, ymax, width, height, i_iterations:int
     Creates an image of the mandelbrot set.
 
     Args:
-        xmin (_type_): minimum x value
-        xmax (_type_): maximum x value
-        ymin (_type_): minimum y value
-        ymax (_type_): maximum y value
-        width (_type_): width of the image
-        height (_type_): height of the image
+        xmin (float): minimum x value
+        xmax (float): maximum x value
+        ymin (float): minimum y value
+        ymax (float): maximum y value
+        width (int): width of the image
+        height (int): height of the image
         i_iterations (int): number of iterations, i, to check the number for
 
     Returns:
