@@ -1,5 +1,7 @@
 Taken
 
+- Definieren in welk bereik van x en y we de mandelbrot set willen bekijken
+- Moeten we eerst een grid maken en daaruit random waardes kiezen?
 - Functie toevegen zodat we random nummers gebruiken i.p.v. pixelwaardes
 - Functie toevoegen die de oppervlakte berekent
 - We doen een grote simulatie met een i en s waarbij s > i en we nemen aan dat de gevonden oppervalkte de echte waarde van de oppervlakte is
