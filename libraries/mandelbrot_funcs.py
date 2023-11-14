@@ -13,7 +13,7 @@ Funcs:
 """
 import numpy as np
 import matplotlib.pyplot as plt
-from numba import jit, vectorize
+from numba import jit
 
 @jit(nopython=True)
 def mandelbrot(z_n, c):
