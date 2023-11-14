@@ -14,8 +14,6 @@ class MandelbrotSet:
     Class to compute the area of the mandelbrot set using the Monte Carlo method.
     
     Args:
-        i_iterations (int): number of iterations, i, to check the number for
-        s_samples (int): number of samples to take
         n_h_bins (int): number of horizontal bins
         n_v_bins (int): number of vertical bins
     Funcs:
@@ -26,6 +24,13 @@ class MandelbrotSet:
     def __init__(self, n_h_bins=8000, n_v_bins=8000):
         self.n_h_bins = n_h_bins
         self.n_v_bins = n_v_bins
+        self.xrange = (-2, 0.47)
+        
+        self.yrange = (-1.12, 1.12)
+        # following are initiated in advance to save time and memory
+        x_grid = np.linspace(self.xrange[0], self.xrange[1], self.n_h_bins)
+        y_grid = np.linspace(self.yrange[0], self.yrange[1], self.n_v_bins)
+        self.xv, self.yv = np.meshgrid(x_grid, y_grid)
         # create a dictionary with the sampling methods
         self.sampling_methods = {'complete': self.complete_range, 'random': np.random.choice}
     
@@ -34,11 +39,10 @@ class MandelbrotSet:
         Computes the area of the mandelbrot set using the Monte Carlo method.
         
         Args:
-            i_iterations (int): number of iterations, i, to check the number for
             s_samples (int): number of samples to take
+            i_iterations (int): number of iterations, i, to check the number for
             sampling (str): 'random' or 'complete'
-            n_h_bins (int): number of horizontal bins
-            n_v_bins (int): number of vertical bins
+            
             
         Returns:
             float: area of the mandelbrot set
@@ -46,20 +50,13 @@ class MandelbrotSet:
         # define the range of the grid
         self.s_samples = s_samples
         self.i_iterations = i_iterations
-        self.xrange = (-2, 0.47)
         xmin, xmax = self.xrange
-        self.yrange = (-1.12, 1.12)
         ymin, ymax = self.yrange
-        x_grid = np.linspace(xmin, xmax, self.n_h_bins)
-        y_grid = np.linspace(ymin, ymax, self.n_v_bins)
-        xv, yv = np.meshgrid(x_grid, y_grid)
-        
-        
         # choose the samples within the range of the grid size by picking indexes in the range of the size of the grid
         samples = self.sampling_methods[sampling](np.arange(self.n_h_bins * self.n_v_bins), self.s_samples)
         # get the x and y values for the samples using the indexes
-        x = xv.flatten()[samples] 
-        y = yv.flatten()[samples]
+        x = self.xv.flatten()[samples] 
+        y = self.yv.flatten()[samples]
         # create the complex numbers  
         c = x + 1j*y
         # compute the complex numbers belong to the mandelbrot set
