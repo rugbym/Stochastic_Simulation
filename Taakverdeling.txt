@@ -1,13 +1,13 @@
 Taken
 
-- Definieren in welk bereik van x en y we de mandelbrot set willen bekijken
-- Moeten we eerst een grid maken en daaruit random waardes kiezen?
-- Functie toevegen zodat we random nummers gebruiken i.p.v. pixelwaardes
-- Functie toevoegen die de oppervlakte berekent
-- We doen een grote simulatie met een i en s waarbij s > i en we nemen aan dat de gevonden oppervalkte de echte waarde van de oppervlakte is
-- Functie creeeren die meerdere simulaties doet voor verschillende waarden van j waarbij s vast blijft
-- Functie creeeren die de oppervlakte A_js vergelijkt met A_is
-- Bekijk de convergentie van A_js-A_is met verschillende waardes van j
+- Definieren in welk bereik van x en y we de mandelbrot set willen bekijken -Mael
+- Moeten we eerst een grid maken en daaruit random waardes kiezen? - Wel gedaan, bij wc even vragen of het nodig is (mael)
+- Functie toevegen zodat we random nummers gebruiken i.p.v. pixelwaardes (todo)
+- Functie toevoegen die de oppervlakte berekent - Done (mael)
+- We doen een grote simulatie met een i en s waarbij s > i en we nemen aan dat de gevonden oppervalkte de echte waarde van de oppervlakte is -  done (mael)
+- Functie creeeren die meerdere simulaties doet voor verschillende waarden van j waarbij s vast blijft - done, in een for-loop in Assignment1.ipynb
+- Functie creeeren die de oppervlakte A_js vergelijkt met A_is - done (geen functie van gemaakt)
+- Bekijk de convergentie van A_js-A_is met verschillende waardes van j - Plot gemaakt, kijken naar gedrag en eventueel s verhogen
 - Voor de 3e opdracht bekijken we voor welke waarde van i het verschil in resultaat te klein wordt. Deze i houden we aan voor de verschillende sampling methods.
 
 
