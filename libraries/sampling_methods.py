@@ -27,12 +27,8 @@ class MandelbrotSet:
         self.xrange = (-2, 0.47)
         
         self.yrange = (-1.12, 1.12)
-        # following are initiated in advance to save time and memory
-        x_grid = np.linspace(self.xrange[0], self.xrange[1], self.n_h_bins)
-        y_grid = np.linspace(self.yrange[0], self.yrange[1], self.n_v_bins)
-        self.xv, self.yv = np.meshgrid(x_grid, y_grid)
         # create a dictionary with the sampling methods
-        self.sampling_methods = {'complete': self.complete_range, 'random': np.random.choice}
+        self.sampling_methods = {'complete': self.complete_range, 'random': np.random.rand}
     
     def area_mandelbrot(self, s_samples, i_iterations, sampling='random'):
         """
@@ -52,13 +48,13 @@ class MandelbrotSet:
         self.i_iterations = i_iterations
         xmin, xmax = self.xrange
         ymin, ymax = self.yrange
-        # choose the samples within the range of the grid size by picking indexes in the range of the size of the grid
-        samples = self.sampling_methods[sampling](np.arange(self.n_h_bins * self.n_v_bins), self.s_samples)
-        # get the x and y values for the samples using the indexes
-        x = self.xv.flatten()[samples] 
-        y = self.yv.flatten()[samples]
+        # choose the samples randomly using the sampling method and rescale 
+        # them to the range of the grid
+        x_samples = self.sampling_methods[sampling](self.s_samples) * (min(self.xrange) - max(self.xrange)) + max(self.xrange)
+        y_samples = self.sampling_methods[sampling](self.s_samples) * (min(self.yrange) - max(self.yrange)) + max(self.yrange)
+        
         # create the complex numbers  
-        c = x + 1j*y
+        c = x_samples + 1j*y_samples
         # compute the complex numbers belong to the mandelbrot set
         mandel = compute_mandelbrot_array(c, self.i_iterations)
         # compute the area of the mandelbrot set
