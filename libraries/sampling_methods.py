@@ -155,8 +155,8 @@ class MandelbrotSetOrt:
         grid_x = np.linspace(self.xrange[0], self.xrange[1], self.n_h_bins)
         grid_y = np.linspace(self.yrange[0], self.yrange[1], self.n_v_bins)
 
-        indices_x = np.random.choice(self.n_h_bins, n_samples,replace=True)
-        indices_y = np.random.choice(self.n_v_bins, n_samples,replace=True)
+        indices_x = np.random.choice(self.n_h_bins, n_samples,replace=False)
+        indices_y = np.random.choice(self.n_v_bins, n_samples,replace=False)
 
         samples_x = grid_x[indices_x]
         samples_y = grid_y[indices_y]
