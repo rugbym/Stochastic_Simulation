@@ -22,7 +22,7 @@ Funcs:
         hypercube_sampling_(s_samples): creates latin hypercube samples in the mandelbrot range
         orthogonal_sampling(s_samples): creates orthogonal samples in the mandelbrot range
         area_mandelbrot(s_samples, i_iterations, sampling='PR'): computes the area of the mandelbrot set
-        
+
 """
 from .mandelbrot_funcs import compute_mandelbrot_array
 import numpy as np
@@ -46,7 +46,7 @@ class MandelbrotSetMC:
         self.yrange = (-1.12, 1.12)
         # create a dictionary with the sampling methods
         self.sampling_methods = {'complete': self.complete_range, 'PR': self.pure_random_sampling_,'LHS': self.hypercube_sampling_, 'ORT': self.orthogonal_sampling}
-    
+
     def pure_random_sampling_(self, s_samples):
         """
         Function that creates random samples in the mandelbrot range
@@ -57,12 +57,12 @@ class MandelbrotSetMC:
         Returns:
             tuple: tuple of arrays (samples_x,samples_y) that depict the x and y coordinates of the samples
         """
-        x_samples = np.random.rand(s_samples) 
-        y_samples = np.random.rand(s_samples) 
+        x_samples = np.random.rand(s_samples)
+        y_samples = np.random.rand(s_samples)
         x_samples = x_samples * (self.xrange[1] - self.xrange[0]) + self.xrange[0]
         y_samples = y_samples * (self.yrange[1] - self.yrange[0]) + self.yrange[0]
         return x_samples, y_samples
-    
+
     def hypercube_sampling_(self, s_samples):
         """
         Function that creates latin hypercube samples in the mandelbrot range
@@ -80,11 +80,11 @@ class MandelbrotSetMC:
         np.random.shuffle(intervals)
         samples_y = intervals
 
-        samples_x = samples_x * (self.xrange[1] - self.xrange[0]) + self.xrange[0] 
+        samples_x = samples_x * (self.xrange[1] - self.xrange[0]) + self.xrange[0]
         samples_y = samples_y * (self.yrange[1] - self.yrange[0]) + self.yrange[0]
         return samples_x, samples_y
-    
-    
+
+
     def orthogonal_sampling(self, s_samples):
         """
         Function that orthogonal samples in the mandelbrot range
@@ -95,17 +95,17 @@ class MandelbrotSetMC:
         Returns:
             tuple: tuple of arrays (samples_x,samples_y) that depict the x and y coordinates of the samples
         """
-        grid_x = np.linspace(self.xrange[0], self.xrange[1], self.n_h_bins)
-        grid_y = np.linspace(self.yrange[0], self.yrange[1], self.n_v_bins)
+        intervals = np.linspace(0, 1, s_samples + 1)[:-1]
+        samples_x = intervals + np.random.rand(s_samples) / s_samples
+        np.random.shuffle(samples_x)
+        samples_y = intervals + np.random.rand(s_samples) / s_samples
+        np.random.shuffle(samples_y)
 
-        indices_x = np.random.choice(self.n_h_bins, s_samples,replace=False)
-        indices_y = np.random.choice(self.n_v_bins, s_samples,replace=False)
-
-        samples_x = grid_x[indices_x]
-        samples_y = grid_y[indices_y]
+        samples_x = samples_x * (self.xrange[1] - self.xrange[0]) + self.xrange[0]
+        samples_y = samples_y * (self.yrange[1] - self.yrange[0]) + self.yrange[0]
 
         return samples_x, samples_y
-    
+
     def area_mandelbrot(self, s_samples, i_iterations, sampling='PR'):
         """
         Computes the area of the mandelbrot set using the Monte Carlo method.
