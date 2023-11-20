@@ -129,6 +129,14 @@ def plot_mandelbrot_set(xmin, xmax, ymin, ymax, width, height, i_iterations:int=
         i_iterations (int, optional): _description_. Defaults to 100.
     """
     image = mandelbrot_set_image(xmin, xmax, ymin, ymax, width, height)
+    plt.title('Mandelbrot Set')
     plt.figure(figsize=(5,5),dpi=1500)
-    plt.imshow(image)
+    plt.imshow(image,extent=[xmin, xmax, ymin, ymax])
+    
+    num_ticks = 5
+    plt.xticks(np.linspace(xmin, xmax, num_ticks))
+    plt.yticks(np.linspace(ymin, ymax, num_ticks))
+    
+    plt.xlabel('Re')
+    plt.ylabel('Im')
     plt.show()
