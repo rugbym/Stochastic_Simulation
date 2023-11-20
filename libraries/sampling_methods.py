@@ -27,37 +27,6 @@ Funcs:
 from .mandelbrot_funcs import compute_mandelbrot_array
 import numpy as np
 
-def pure_random_sampling(s_samples):
-    """
-    Function that creates 2D random samples in the (0,1) interval
-
-    Args:
-        s_samples (int): number of samples to generate
-
-    Returns:
-        tuple: tuple of arrays (samples_x,samples_y) that depict the x and y coordinates of the samples
-    """
-    x_samples = np.random.rand(s_samples) 
-    y_samples = np.random.rand(s_samples) 
-    return x_samples, y_samples
-
-def hypercube_sampling(s_samples):
-    """
-    Function that creates 2D latin hypercube samples in the (0,1) interval
-
-    Args:
-        s_samples (int): number of samples to generate
-
-
-    Returns:
-        tuple: tuple of arrays (samples_x,samples_y) that depict the x and y coordinates of the samples
-    """
-    intervals =np.linspace(0, 1,s_samples + 1)[:-1]
-    np.random.shuffle(intervals)
-    samples_x = intervals.copy()
-    np.random.shuffle(intervals)
-    samples_y = intervals
-    return samples_x, samples_y
 class MandelbrotSetMC:
     """
     Class to compute the area of the mandelbrot set using the Monte Carlo method.
@@ -88,7 +57,8 @@ class MandelbrotSetMC:
         Returns:
             tuple: tuple of arrays (samples_x,samples_y) that depict the x and y coordinates of the samples
         """
-        x_samples, y_samples = pure_random_sampling(s_samples)
+        x_samples = np.random.rand(s_samples) 
+        y_samples = np.random.rand(s_samples) 
         x_samples = x_samples * (self.xrange[1] - self.xrange[0]) + self.xrange[0]
         y_samples = y_samples * (self.yrange[1] - self.yrange[0]) + self.yrange[0]
         return x_samples, y_samples
@@ -98,13 +68,18 @@ class MandelbrotSetMC:
         Function that creates latin hypercube samples in the mandelbrot range
 
         Args:
-            n_samples (int): number of samples to generate
+            s_samples (int): number of samples to generate
 
         Returns:
                 tuple: tuple of arrays (samples_x,samples_y) that depict the x and y coordinates of the samples
         """
 
-        samples_x,samples_y = hypercube_sampling(s_samples)
+        intervals = np.linspace(0, 1,s_samples + 1)[:-1]
+        np.random.shuffle(intervals)
+        samples_x = intervals.copy()
+        np.random.shuffle(intervals)
+        samples_y = intervals
+
         samples_x = samples_x * (self.xrange[1] - self.xrange[0]) + self.xrange[0] 
         samples_y = samples_y * (self.yrange[1] - self.yrange[0]) + self.yrange[0]
         return samples_x, samples_y
